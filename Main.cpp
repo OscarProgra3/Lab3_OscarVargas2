@@ -2,14 +2,13 @@
 #include <string>
 #include <bitset>
 #include <sstream>
-
-#include <unistd.h>
-#include <typeinfo>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
 char** inicializarMatriz(int);
-
+void imprimirLaberinto(char** matriz, int size);
 
 int main()
 {
@@ -74,6 +73,8 @@ int main()
 					matrix[i][j]=rand()% 100 +1;
 				}
 			}
+
+			imprimirLaberinto(matrix,tam);
 
 		}
 
