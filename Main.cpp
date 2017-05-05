@@ -1,11 +1,19 @@
 #include <iostream>
 #include <string>
+#include <bitset>
 #include <sstream>
+
+#include <unistd.h>
+#include <typeinfo>
 
 using namespace std;
 
+char** inicializarMatriz(int);
+
+
 int main()
 {
+	srand(time(NULL));
 	int opc=9;
 	while(opc!=3)
 	{
@@ -18,51 +26,75 @@ int main()
 			
 			string numerosmalos="";
 			int num,n;
-		    string cad = "";
+		    
 		    cout<<"Ingrese hasta que numero el numero\n";
 		    cin >> n;
-		    for (int i = 0; i < n; ++i)
-		    {
-		    	int cont=0;
-		    	num=i;
-			    if(num > 0){
-			        while(num>0){
-			           if(num%2 == 0)
-			                cad = "0" + cad;
-			            else
-			                cad = "1" + cad;
-			                num = num/2;
-			                cont++;
-			        }
-			        //cout <<"Numero en binario: " <<cad;
-			    }
-			    /*else{
-			        if(num == 0)
-			            cout << "0";
-			        //else
-			          //  cout << "Solo numeros mayores a cero";
-			    }*/
+
+		    cout<<endl<<"Los numeros malvados son :"<<endl;
+		    int cont=0;
+		    for (int i =0 ; i <=n; ++i)
+		    {	
+		    	 cont=0;
+
+		    	string binario = bitset<8>(i).to_string();
+		    //	cout<<endl<<"binario de "<<i<<" es: "<<binario<<endl;
+
+		    	for (int j = 0; j < binario.size(); ++j)
+		    	{
+		    		if (binario[j]=='1')
+		    		{
+		    			cont++;
+		    		}
+		    	}
+
+
 			    if (cont%2==0)
 			    {
-			    	stringstream ss;
-			    	ss<<i;
-			    	string str = ss.str(); 
-
-			    	numerosmalos+=str+",";
+			    	
+			    	cout<<i<<",";
 			    }
 			} 
 
-			cout<<endl<<"Los numeros malvados son : "<<numerosmalos<<endl;
+			cout<<endl;
 
 		}
 		//---------------------------------------------------------------------
 		if (opc==2)
 		{
-			/* code */
+			int tam;
+			cout<<endl<<"Ingrese el tamaño de la matriz: ";
+			cin>>tam;
+
+			char** matrix = new char*[tam];
+			
+			for (int i = 0; i < tam; ++i)
+			{
+				for (int j = 0; j < tam; ++j)
+				{
+					matrix[i][j]=rand()% 100 +1;
+				}
+			}
+
 		}
 
 	}
 
 
 	return 0;
+}
+
+long abinario(long num){
+ if(num < 2)
+  return num;
+ else
+  return num%2 + (10 * abinario(num/2));
+}
+
+void imprimirLaberinto(char** matriz, int size) {
+	for(int i = 0; i < size; i++) {
+		for(int j = 0; j < size; j++) {
+			cout << matriz[i][j]<<" ";
+		}
+		cout << endl;
+	}
 }
